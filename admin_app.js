@@ -11,6 +11,7 @@ const movielists = require('./routes/movielist');
 const guest_routes = require('./routes/guest');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const history = require('connect-history-api-fallback');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -73,7 +74,13 @@ app.get('/', authToken, (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.listen({ port: process.env.port || 8001}, async () => {
+app.use(staticMdl);
+
+app.use(history({ index: '/index.html' }));
+
+app.use(staticMdl);
+
+app.listen({ port: process.env.port || 9001}, async () => {
     console.log("app started.");
     await sequelize.authenticate();
 });
