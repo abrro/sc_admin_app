@@ -74,12 +74,6 @@ app.get('/', authToken, (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.use(staticMdl);
-
-app.use(history({ index: '/index.html' }));
-
-app.use(staticMdl);
-
 app.listen({ port: process.env.port || 9001}, async () => {
     console.log("app started.");
     await sequelize.authenticate();
